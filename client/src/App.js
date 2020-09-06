@@ -12,6 +12,11 @@ const App = () => {
   const [savedList, setSavedList] = useState([]);
   const [movieList, setMovieList] = useState([]);
 
+  /* ===========GET MOVIE LIST==================
+  - called on initial load by useEffect()
+  - passed as props to 'add' and 'update' to 
+    to repopulate the list after modifying API
+    =============================================*/
   const getMovieList = () => {
     axios.get("http://localhost:5000/api/movies")
       .then(res => {
@@ -24,6 +29,7 @@ const App = () => {
     setSavedList([...savedList, movie]);
   };
 
+  // INITIAL CALL OF API ^FUNCTION ABOVE^
   useEffect(() => {
     getMovieList();
   }, []);
@@ -39,23 +45,16 @@ const App = () => {
       <Route exact path="/movies/:id">
         <Movie 
             addToSavedList={addToSavedList} 
-               movies={ movieList }
-               getMovieList={ getMovieList }
+            getMovieList={ getMovieList }
          />
       </Route>
 
       <Route exact path="/update-movie/:id">
-           <UpdateMovie   
-               movies = { movieList} 
-               getMovies = { getMovieList }
-           />
+           <UpdateMovie getMovieList = { getMovieList } />
        </Route>
 
        <Route exact path="/add-movie">
-          <AddMovie  
-               movies={movieList} 
-               getMovies={getMovieList}
-           />
+          <AddMovie getMovieList={getMovieList}/>
        </Route>
     </div>
   );

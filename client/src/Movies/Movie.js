@@ -13,6 +13,7 @@ function Movie( props ) {
   const match = useRouteMatch();
 
   const getMovie = (id) => {
+
     axios.get(`http://localhost:5000/api/movies/${id}`)
       .then((res) => setMovie(res.data))
       .catch((err) => console.log(err.response));
@@ -23,6 +24,7 @@ function Movie( props ) {
   };
 
   const deleteItem = (e) => {
+
      axios.delete(`http://localhost:5000/api/movies/${id}`)
       .then( (res) => {
          console.log("DELETED IS: ", res);
@@ -32,7 +34,7 @@ function Movie( props ) {
   }
 
   useEffect(() => {
-    getMovie(id);
+    getMovie(id); // LOCAL FUNCTION
   }, [id]);
 
   if (!movie) {
@@ -48,11 +50,11 @@ function Movie( props ) {
         Save
       </div>
 
-      <button onClick={ () => {
+      <button className="general-button" onClick={ () => {
          history.push(`/update-movie/${match.params.id}`);
       }}>Update</button>
 
-      <button onClick={deleteItem}>Delete</button>
+      <button className="general-button" onClick={deleteItem}>Delete</button>
 
     </div>
   );

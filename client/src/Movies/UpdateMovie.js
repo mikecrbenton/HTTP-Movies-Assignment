@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useParams, useHistory, useRouteMatch } from 'react-router-dom';
+import '../index.css'
 
 function UpdateMovie( props ){
 
    const [ movie, setMovie ] = useState({
-      id: null,
+      //id: null,
       title: "",
       director: "",
       metascore: "",
@@ -58,7 +59,7 @@ function UpdateMovie( props ){
 
       axios.put(`http://localhost:5000/api/movies/${id}`, movie)
          .then( (res) => {
-            props.getMovies(res.data);
+            props.getMovieList(res.data);
             push('/'); })
          .catch( (err) => { console.log(err) } );
    }
@@ -66,9 +67,9 @@ function UpdateMovie( props ){
 
    return (
      <section className="update-form">
-      <form onSubmit={handleSubmit}>
+      <form className="form-styling" onSubmit={handleSubmit}>
          <label htmlFor="title">
-            TITLE
+            <div>Title</div>
             <input
                name="title"
                type="text"
@@ -77,7 +78,7 @@ function UpdateMovie( props ){
             />
          </label>
          <label htmlFor="director">
-            DIRECTOR
+            <div>Director</div>
             <input
                name="director"
                type="text"
@@ -86,7 +87,7 @@ function UpdateMovie( props ){
             />
          </label>
          <label htmlFor="metascore">
-            METASCORE
+            <div>Metascore</div>
             <input
                name="metascore"
                type="text"
@@ -95,7 +96,7 @@ function UpdateMovie( props ){
             />
          </label>
          <label htmlFor="stars">
-            STARS
+            <div>Stars</div>
             <input
                name="stars"
                type="text"
@@ -103,7 +104,7 @@ function UpdateMovie( props ){
                onChange={handleChanges}
             />
          </label>
-         <button>Update Movie</button>
+         <button className="general-button" >Update Movie</button>
       </form>
     </section>
    )

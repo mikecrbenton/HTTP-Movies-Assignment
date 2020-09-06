@@ -75,3 +75,34 @@ body {
   color: red;
   text-align: center;
 }
+
+.general-button {
+   border: 1px solid grey;
+   padding: 5px 10px;
+   background-color: lightseagreen;
+   margin-right: 10px;
+ }
+ .general-button:hover {
+   background-color: green;
+   color: white;
+ }
+
+ .form-styling{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ }
+
+ .form-styling label{
+    margin: .5em 0;
+    font-weight: 700;
+ }
+
+ .form-styling input{
+    border: 0px;
+    box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.24);
+    padding: .5em;
+    font-weight: 700;
+ }

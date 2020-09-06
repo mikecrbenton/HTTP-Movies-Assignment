@@ -16,6 +16,18 @@ function AddMovie( props ) {
 
    // CHANGE HANDLER==========================================
    const handleChanges = (e) => {
+
+      console.log("HANDLE CHANGE : ", e);
+
+       e.persist();
+       //IF COMMA SEPARATED STRING - CONVERT TO AN ARRAY
+       let value = e.target.value;
+       if(e.target.name === 'stars'){ 
+          value = value.split(","); 
+       }
+ 
+       //console.log("VALUE IS: ", value);
+
       setMovie({
          ...movie,
          [e.target.name]: e.target.value
@@ -25,25 +37,26 @@ function AddMovie( props ) {
    // ADD / POST FUNCTION===================================
    const handleSubmit = (e) => {
       e.preventDefault();
-      //movie.metascore = movie.metascore*1;
-      //movie.stars = movie.stars.split(",");
+   
+      let formattedMovie = {
+         ...movie,
+         stars: movie.stars.split(',')
+      }
 
-      //const id = match.params.id;
-
-      axios.post(`http://localhost:5000/api/movies/`, movie)
+      axios.post(`http://localhost:5000/api/movies/`, formattedMovie)
          .then( (res) => {
-            props.getMovies(res.data);
+            console.log("RESULT IN ADD : ", res)
+            props.getMovieList(res.data);
             push('/'); })
          .catch( (err) => { console.log(err) } );
    }
 
    return (
-      <section className="update-form">
-
-       <form onSubmit={handleSubmit}>
+    
+       <form className="form-styling" onSubmit={handleSubmit}>
 
           <label htmlFor="title">
-             TITLE
+             <div>Title</div>
              <input
                 name="title"
                 type="text"
@@ -53,7 +66,7 @@ function AddMovie( props ) {
           </label>
 
           <label htmlFor="director">
-             DIRECTOR
+             <div>Director</div>
              <input
                 name="director"
                 type="text"
@@ -63,7 +76,7 @@ function AddMovie( props ) {
           </label>
 
           <label htmlFor="metascore">
-             METASCORE
+             <div>Metascore</div>
              <input
                 name="metascore"
                 type="text"
@@ -73,7 +86,7 @@ function AddMovie( props ) {
           </label>
 
           <label htmlFor="stars">
-             STARS
+             <div>Stars</div>
              <input
                 name="stars"
                 type="text"
@@ -82,10 +95,9 @@ function AddMovie( props ) {
              />
           </label>
 
-          <button>Add Movie</button>
+          <button className="general-button">Add Movie</button>
 
        </form>
-     </section>
     )
 
 
