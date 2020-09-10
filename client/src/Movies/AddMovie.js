@@ -45,7 +45,7 @@ function AddMovie( props ) {
 
       axios.post(`http://localhost:5000/api/movies/`, formattedMovie)
          .then( (res) => {
-            console.log("RESULT IN ADD : ", res)
+            //console.log("RESULT IN ADD : ", res)
             props.getMovieList(res.data);
             push('/'); })
          .catch( (err) => { console.log(err) } );
